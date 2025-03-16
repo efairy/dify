@@ -11,10 +11,8 @@ import EnvNav from './env-nav'
 import PluginsNav from './plugins-nav'
 import ExploreNav from './explore-nav'
 import ToolsNav from './tools-nav'
-import { WorkspaceProvider } from '@/context/workspace-context'
 import { useAppContext } from '@/context/app-context'
 import LogoSite from '@/app/components/base/logo/logo-site'
-import WorkplaceSelector from '@/app/components/header/account-dropdown/workplace-selector'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import { useProviderContext } from '@/context/provider-context'
 import { useModalContext } from '@/context/modal-context'
@@ -60,16 +58,13 @@ const Header = () => {
         {
           !isMobile
           && <div className='flex w-64 p-2 pl-3 gap-1.5 items-center shrink-0 self-stretch'>
-            <Link href="/apps" className='flex w-8 h-8 items-center justify-center gap-2 shrink-0'>
+            <Link href="/apps" className='flex w-32 h-8 items-center justify-center gap-2 shrink-0'>
               <LogoSite className='object-contain' />
             </Link>
-            <div className='font-light text-divider-deep'>/</div>
-            <div className='flex items-center gap-0.5'>
-              <WorkspaceProvider>
-                <WorkplaceSelector />
-              </WorkspaceProvider>
+            {/* <div className='font-light text-divider-deep'>/</div> */}
+            {/* <div className='flex items-center gap-0.5'>
               {enableBilling ? <PlanBadge allowHover sandboxAsUpgrade plan={plan.type} onClick={handlePlanClick} /> : <LicenseNav />}
-            </div>
+            </div> */}
           </div>
         }
       </div >

@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { useContext } from 'use-context-selector'
 import { useTranslation } from 'react-i18next'
 import { Menu, Transition } from '@headlessui/react'
-import { RiArrowDownSLine } from '@remixicon/react'
+import { RiArrowRightSLine, RiCheckLine } from '@remixicon/react'
 import cn from '@/utils/classnames'
 import { switchWorkspace } from '@/service/common'
 import { useWorkspacesContext } from '@/context/workspace-context'
@@ -30,7 +30,7 @@ const WorkplaceSelector = () => {
   }
 
   return (
-    <Menu as="div" className="relative w-full h-full">
+    <Menu as="div" className="relative w-full h-full group">
       {
         ({ open }) => (
           <>
@@ -41,36 +41,34 @@ const WorkplaceSelector = () => {
               `,
             )}>
               <div className='flex items-center justify-center w-7 h-7 bg-[#EFF4FF] rounded-lg text-xs font-medium text-primary-600'>{currentWorkspace?.name[0].toLocaleUpperCase()}</div>
-              <div className='flex flex-row'>
-                <div className={'truncate max-w-[80px] text-text-secondary system-sm-medium'}>{currentWorkspace?.name}</div>
-                <RiArrowDownSLine className='w-4 h-4 text-text-secondary' />
+              <div className='flex flex-1 min-w-0 items-center justify-between'>
+                <div className={'truncate max-w-[160px] text-text-secondary system-sm-medium'}>{currentWorkspace?.name}</div>
+                <RiArrowRightSLine className='shrink-0 w-4 h-4 text-text-secondary' />
               </div>
             </Menu.Button>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
+              enterFrom="transform opacity-0 -translate-x-2"
+              enterTo="transform opacity-100 translate-x-0"
               leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
+              leaveFrom="transform opacity-100 translate-x-0"
+              leaveTo="transform opacity-0 -translate-x-2"
             >
               <Menu.Items
                 className={cn(
                   `
-                    flex w-[280px] flex-col items-start absolute left-[-15px] mt-1 rounded-xl shadows-shadow-lg
+                    flex w-[280px] flex-col items-start absolute right-full top-0 mr-1 rounded-xl shadows-shadow-lg
                   `,
                 )}
               >
-                <div className="flex flex-col p-1 pb-2 items-start self-stretch w-full rounded-xl border-[0.5px] border-components-panel-border bg-components-panel-bg-blur shadow-lg ">
-                  <div className='flex px-3 pt-1 pb-0.5 items-start self-stretch'>
-                    <span className='flex-1 text-text-tertiary system-xs-medium-uppercase'>{t('common.userProfile.workspace')}</span>
-                  </div>
+                <div className="flex flex-col p-1 pb-2 items-start self-stretch w-full rounded-xl border-[0.5px] border-components-panel-border bg-components-panel-bg-blur shadow-lg">
                   {
                     workspaces.map(workspace => (
                       <div className='flex py-1 pl-3 pr-2 items-center gap-2 self-stretch hover:bg-state-base-hover rounded-lg' key={workspace.id} onClick={() => handleSwitchWorkspace(workspace.id)}>
                         <div className='flex items-center justify-center w-6 h-6 bg-[#EFF4FF] rounded-md text-xs font-medium text-primary-600'>{workspace.name[0].toLocaleUpperCase()}</div>
                         <div className='line-clamp-1 grow overflow-hidden text-text-secondary text-ellipsis system-md-regular cursor-pointer'>{workspace.name}</div>
+                        {workspace.id === currentWorkspace?.id && <RiCheckLine className="w-4 h-4 text-primary-600" />}
                         <PlanBadge plan={workspace.plan as Plan} />
                       </div>
                     ))

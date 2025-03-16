@@ -20,6 +20,9 @@ import { useModalContext } from '@/context/modal-context'
 import { LanguagesSupported } from '@/i18n/language'
 import { LicenseStatus } from '@/types/feature'
 import { IS_CLOUD_EDITION } from '@/config'
+import WorkplaceSelector from '@/app/components/header/account-dropdown/workplace-selector'
+import { WorkspaceProvider } from '@/context/workspace-context'
+
 
 export type IAppSelector = {
   isMobile: boolean
@@ -99,6 +102,14 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                     </div>
                   </Menu.Item>
                   <div className="px-1 py-1">
+                    <div className='flex px-3 pt-1 pb-0.5 items-start self-stretch'>
+                      <span className='flex-1 text-text-tertiary system-xs-medium-uppercase'>{t('common.userProfile.workspace')}</span>
+                    </div>
+                    <WorkspaceProvider>
+                      <WorkplaceSelector />
+                    </WorkspaceProvider>
+                  </div>
+                  <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => <Link
                         className={classNames(itemClassName, 'group',
@@ -135,10 +146,10 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <RiArrowRightUpLine className='shrink-0 size-[14px] text-text-tertiary' />
                       </Link>}
                     </Menu.Item>
-                    <Support />
-                    {IS_CLOUD_EDITION && isCurrentWorkspaceOwner && <Compliance />}
+                    {/* <Support />
+                    {IS_CLOUD_EDITION && isCurrentWorkspaceOwner && <Compliance />} */}
                   </div>
-                  <div className='p-1'>
+                  {/* <div className='p-1'>
                     <Menu.Item>
                       {({ active }) => <Link
                         className={classNames(itemClassName, 'group justify-between',
@@ -182,7 +193,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         </Menu.Item>
                       )
                     }
-                  </div>
+                  </div> */}
                   <Menu.Item>
                     {({ active }) => <div className='p-1' onClick={() => handleLogout()}>
                       <div
