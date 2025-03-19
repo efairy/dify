@@ -122,7 +122,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <div>{t('common.userProfile.settings')}</div>
                       </div>}
                     </Menu.Item>
-                    {canEmailSupport && <Menu.Item>
+                    {/* {canEmailSupport && <Menu.Item>
                       {({ active }) => <a
                         className={classNames(itemClassName, 'group justify-between',
                           active && 'bg-state-base-hover',
@@ -193,7 +193,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                           </div>}
                         </Menu.Item>
                       )
-                    }
+                    } */}
                   </div>
                   <Menu.Item>
                     {({ active }) => <div className='p-1' onClick={() => handleLogout()}>
